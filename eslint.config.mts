@@ -21,7 +21,7 @@ export default tseslint.config(
 			},
 		},
 	},
-	...obsidianmd.configs.recommended,
+	...(obsidianmd.configs?.recommended ? [obsidianmd.configs.recommended as Parameters<typeof tseslint.config>[0]] : []),
 	globalIgnores([
 		"node_modules",
 		"dist",
