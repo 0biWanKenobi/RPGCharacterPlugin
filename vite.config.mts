@@ -32,6 +32,10 @@ export default defineConfig(({ mode }) => ({
 			fileName: () => "main.js",
 		},
 		outDir: ".",
+		watch: {
+			allowInputInsideOutputPath: true,
+			exclude: ["**/main.js", "**/*.map"],
+		},
 		emptyOutDir: false,
 		sourcemap: mode === "development" ? "inline" : false,
 		minify: mode !== "development",
