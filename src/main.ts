@@ -7,6 +7,7 @@ export default class RPGCharacterPlugin extends Plugin {
 	settings: PluginSettings;
 
 	async onload() {
+		console.log('Loading RPG Character Plugin');
 		await this.loadSettings();
 
 		// This creates an icon in the left ribbon.
