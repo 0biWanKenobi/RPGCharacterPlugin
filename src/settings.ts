@@ -1,4 +1,4 @@
-import {App, Notice, PluginSettingTab, setIcon, Setting} from "obsidian";
+import {App, PluginSettingTab, setIcon, Setting} from "obsidian";
 import type RPGCharacterPlugin from "./main";
 import P2PService from "./p2p";
 import AuthenticationService from "./authentication";
@@ -60,7 +60,7 @@ export class SettingTab extends PluginSettingTab {
 		super(app, plugin);
 		this.plugin = plugin;
 		this.authService = new AuthenticationService(app.secretStorage);
-		this.p2pService = new P2PService(this.authService);
+		this.p2pService = new P2PService(this.authService, this.plugin.settings.character.id);
 	}
 
 	display(): void {

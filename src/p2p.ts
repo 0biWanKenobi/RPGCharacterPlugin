@@ -8,13 +8,16 @@ export default class P2PService {
     private authService: AuthenticationService;
 
     private peerIdPromise = Promise.withResolvers<string>();
+	
+	private readonly P2P_PEER_PREFIX = "rpg_p2p_user"
 
     /**
      * Builds the peer and sets up the "open" event listener
      * to store the peer ID when the connection is established.
      */
-    constructor(authService: AuthenticationService) {
-        this.peer = new Peer();
+    constructor(authService: AuthenticationService, currentPeerId?: string) {
+		this.peerId = currentPeerId || `${this.P2P_PEER_PREFIX}_${crypto.randomUUID()}`;
+        this.peer = new Peer(this.peerId);
         this.authService = authService;
         this.peer.on("open", (id) => {
             this.peerId = id;
