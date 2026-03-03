@@ -1,7 +1,7 @@
 {
-	"name": "obsidian-sample-plugin",
+	"name": "rpg-player-plugin",
 	"version": "1.0.0",
-	"description": "This is a sample plugin for Obsidian (https://obsidian.md)",
+	"description": "An Obsidian plugin to play RPG games with friends. This is the player plugin, which connects to the master plugin and receives game state updates.",
 	"main": "main.js",
 	"type": "module",
 	"scripts": {
@@ -13,17 +13,19 @@
 	"keywords": [],
 	"license": "0-BSD",
 	"devDependencies": {
+		"@eslint/js": "9.30.1",
 		"@types/node": "^20.17.0",
 		"eslint-plugin-obsidianmd": "0.1.9",
 		"globals": "14.0.0",
+		"jiti": "2.6.1",
 		"tslib": "2.4.0",
 		"typescript": "^5.8.3",
 		"typescript-eslint": "8.35.1",
-		"@eslint/js": "9.30.1",
-		"jiti": "2.6.1",
 		"vite": "^6.2.0"
 	},
 	"dependencies": {
-		"obsidian": "latest"
+		"@preact/signals": "^2.8.1",
+		"obsidian": "1.12.3",
+		"peerjs": "^1.5.5"
 	}
 }

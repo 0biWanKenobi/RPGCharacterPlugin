@@ -1,5 +1,10 @@
-import {App, PluginSettingTab, Setting} from "obsidian";
-import RPGCharacterPlugin from "./main";
+import {App, Notice, PluginSettingTab, setIcon, Setting} from "obsidian";
+import type RPGCharacterPlugin from "./main";
+import P2PService from "./p2p";
+import AuthenticationService from "./authentication";
+import {initCampaignIdSetting, initCampaignNameSetting} from "./settings/campaign";
+import { initCharacterIdSetting, initCharacterNotLoadedWarning } from "./settings/character";
+import { computed } from "@preact/signals";
 
 interface CharacterSettings {
 	id: string;
@@ -48,10 +53,14 @@ export const DEFAULT_SETTINGS: PluginSettings = {
 
 export class SettingTab extends PluginSettingTab {
 	plugin: RPGCharacterPlugin;
+	private p2pService: P2PService;
+	private authService: AuthenticationService;
 
 	constructor(app: App, plugin: RPGCharacterPlugin) {
 		super(app, plugin);
 		this.plugin = plugin;
+		this.authService = new AuthenticationService(app.secretStorage);
+		this.p2pService = new P2PService(this.authService);
 	}
 
 	display(): void {
@@ -59,35 +68,64 @@ export class SettingTab extends PluginSettingTab {
 
 		containerEl.empty();
 		
-		containerEl.createEl('h1', { text: 'RPG Character Plugin Settings'})
+		containerEl.createEl('h2', { text: 'RPG Character Plugin Settings', cls: 'plugin-settings-title' });
 
-		containerEl.createEl('h2', { text: 'Campaign'})
+		headerWithIcon(containerEl, 'Campaign', 'scroll-text');
 		
-		new Setting(containerEl)
-			.setName('Campaign ID')
-			.setDesc('This will download the campaign info. Ask your master.')
-			.addText(text => text
-				.setPlaceholder('rpg_cmpgn_id_4c58112a-f325-4397-b5b7-db137ef42414')
-				.setValue(this.plugin.settings.campaign.id)
-				.onChange(async (value) => {
-					this.plugin.settings.campaign.id = value;
-					await this.plugin.saveSettings();
-					campaignName.setDisabled(false);
-				}));
+		var campaignIdSetting = initCampaignIdSetting(
+			containerEl,
+			this.plugin.settings.campaign.id
+		)
+		.subscribe((value) => {
+			this.plugin.settings.campaign.id = value;
+			this.plugin.saveSettings();
+		});
 		
-		const campaignName = new Setting(containerEl)
-				.setName('Campaign Name')
-				.setDesc('Name of this awesome campaign')
-				.addText(text => 
-					text
-						.setPlaceholder('Name of the Campaign')
-						.setValue(this.plugin.settings.campaign.name)
-						.onChange(async (value) => {
-							this.plugin.settings.campaign.name = value;
-							await this.plugin.saveSettings();
-						})
-						.setDisabled(true)
-				)
-		;
+		const campaignNameDisabled = computed(() => (campaignIdSetting.signal.value || '') == '');
+		
+		initCampaignNameSetting(
+			containerEl,
+			this.plugin.settings.campaign.name,
+			campaignNameDisabled
+		)
+		.subscribe(async (value) => {
+			this.plugin.settings.campaign.name = value;
+			await this.plugin.saveSettings();
+		});
+
+		headerWithIcon(containerEl, 'Character', 'file-user');
+
+		initCharacterIdSetting(
+			containerEl,
+			this.plugin.settings.character.id
+		)
+		.subscribe((value) => {
+			this.plugin.settings.character.id = value;
+			this.plugin.saveSettings();
+		});
+
+		this.p2pService.getPeerIdAsync().then(peerId => {
+			this.plugin.settings.character.id = peerId;
+			this.plugin.saveSettings();
+		});
+
+
+		initCharacterNotLoadedWarning(containerEl)
+		.subscribe((shouldHide, warning ) => {
+			if(shouldHide) warning.settingEl.hide();
+			else warning.settingEl.show();
+		});
+		
 	}
+}
+
+const headerWithIcon = (parent: HTMLElement, title: string, icon: string) => {
+	var campaignHeader = new Setting(parent)
+	.setName(title)
+	.setClass('header-with-icon')
+	.setHeading();
+	
+	setIcon(campaignHeader.settingEl.createDiv({cls: 'header-icon-wrapper'}), icon);
+
+	return campaignHeader;
 }

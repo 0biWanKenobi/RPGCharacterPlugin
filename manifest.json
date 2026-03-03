@@ -1,11 +1,11 @@
 {
-	"id": "sample-plugin",
-	"name": "Sample Plugin",
+	"id": "rpg-player-plugin",
+	"name": "RPG Player Plugin",
 	"version": "1.0.0",
 	"minAppVersion": "0.15.0",
-	"description": "Demonstrates some of the capabilities of the Obsidian API.",
-	"author": "Obsidian",
-	"authorUrl": "https://obsidian.md",
+	"description": "An Obsidian plugin to play RPG games with friends. This is the player plugin, which connects to the master plugin and receives game state updates.",
+	"author": "Obi Wan Kenobi",
+	"authorUrl": "https://github.com/0biWanKenobi",
 	"fundingUrl": "https://obsidian.md/pricing",
 	"isDesktopOnly": false
 }
