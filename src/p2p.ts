@@ -3,7 +3,7 @@ import { DataConnection, Peer } from "peerjs";
 
 export default class P2PService {
 
-    private peer: Peer | undefined;
+    private readonly peer: Peer | undefined;
     private peerId: string | undefined;
     private authService: AuthenticationService;
 

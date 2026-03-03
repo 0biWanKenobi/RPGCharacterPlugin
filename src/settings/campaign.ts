@@ -1,9 +1,9 @@
 import { Signal, signal } from "@preact/signals";
 import { Setting } from "obsidian";
-import { PluginSetting } from "../settings/index";
+import { PluginSetting } from "./index";
 
 export const campaignId = signal('');
-const initCampaignIdSetting = (
+export const initCampaignIdSetting = (
     containerEl: HTMLElement,
     value: string
 ) => {
@@ -21,11 +21,9 @@ const initCampaignIdSetting = (
     return new PluginSetting<string>(setting, campaignId);
 }
 
-export { initCampaignIdSetting };
-
 
 const campaignName = signal('');
-const initCampaignNameSetting = (
+export const initCampaignNameSetting = (
     containerEl: HTMLElement,
     value: string,
     disabled: Signal<boolean>
@@ -47,5 +45,3 @@ const initCampaignNameSetting = (
 			});
     return new PluginSetting<string>(setting, campaignName);
 }
-
-export { initCampaignNameSetting };

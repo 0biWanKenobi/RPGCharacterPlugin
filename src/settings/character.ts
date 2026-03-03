@@ -1,6 +1,6 @@
 import { computed, signal } from "@preact/signals";
 import { Notice, Setting } from "obsidian";
-import { PluginSetting } from "../settings/index";
+import { PluginSetting } from "./index";
 import { campaignId } from "./campaign";
 
 const characterId = signal('');
@@ -28,9 +28,6 @@ const initCharacterIdSetting = (
                 );
     return new PluginSetting<string>(setting, characterId);
 }
-
-export { initCharacterIdSetting };
-
 
 const characterNotLoadedShouldHide = computed(() => (campaignId.value || '') == '');
 

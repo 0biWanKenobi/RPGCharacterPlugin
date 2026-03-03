@@ -53,8 +53,8 @@ export const DEFAULT_SETTINGS: PluginSettings = {
 
 export class SettingTab extends PluginSettingTab {
 	plugin: RPGCharacterPlugin;
-	private p2pService: P2PService;
-	private authService: AuthenticationService;
+	private readonly p2pService: P2PService;
+	private readonly authService: AuthenticationService;
 
 	constructor(app: App, plugin: RPGCharacterPlugin) {
 		super(app, plugin);
@@ -72,13 +72,13 @@ export class SettingTab extends PluginSettingTab {
 
 		headerWithIcon(containerEl, 'Campaign', 'scroll-text');
 		
-		var campaignIdSetting = initCampaignIdSetting(
+		const campaignIdSetting = initCampaignIdSetting(
 			containerEl,
 			this.plugin.settings.campaign.id
 		)
-		.subscribe((value) => {
+		.subscribe(async(value) => {
 			this.plugin.settings.campaign.id = value;
-			this.plugin.saveSettings();
+			await this.plugin.saveSettings();
 		});
 		
 		const campaignNameDisabled = computed(() => (campaignIdSetting.signal.value || '') == '');
@@ -99,14 +99,14 @@ export class SettingTab extends PluginSettingTab {
 			containerEl,
 			this.plugin.settings.character.id
 		)
-		.subscribe((value) => {
+		.subscribe(async(value) => {
 			this.plugin.settings.character.id = value;
-			this.plugin.saveSettings();
+			await this.plugin.saveSettings();
 		});
 
-		this.p2pService.getPeerIdAsync().then(peerId => {
+		this.p2pService.getPeerIdAsync().then(async (peerId )=> {
 			this.plugin.settings.character.id = peerId;
-			this.plugin.saveSettings();
+			await this.plugin.saveSettings();
 		});
 
 
@@ -120,7 +120,7 @@ export class SettingTab extends PluginSettingTab {
 }
 
 const headerWithIcon = (parent: HTMLElement, title: string, icon: string) => {
-	var campaignHeader = new Setting(parent)
+	const campaignHeader = new Setting(parent)
 	.setName(title)
 	.setClass('header-with-icon')
 	.setHeading();
