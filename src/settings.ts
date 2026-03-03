@@ -110,7 +110,7 @@ export class SettingTab extends PluginSettingTab {
 		});
 
 
-		initCharacterNotLoadedWarning(containerEl)
+		initCharacterNotLoadedWarning(containerEl, campaignIdSetting.signal)
 		.subscribe((shouldHide, warning ) => {
 			if(shouldHide) warning.settingEl.hide();
 			else warning.settingEl.show();

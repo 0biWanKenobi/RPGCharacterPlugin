@@ -1,15 +1,12 @@
-import { computed, signal } from "@preact/signals";
+import {computed, type Signal, signal} from "@preact/signals";
 import { Notice, Setting } from "obsidian";
 import { PluginSetting } from "./index";
-import { campaignId } from "./campaign";
 
-const characterId = signal('');
-
-const initCharacterIdSetting = (
+export const initCharacterIdSetting = (
     containerEl: HTMLElement,
     value: string
 ) => {
-
+	const characterId = signal(value);
     const setting = new Setting(containerEl)
                 .setName('Character ID')
                 .setDesc('Your Character ID. Give it to your master to link it to the campaign.')
@@ -29,9 +26,11 @@ const initCharacterIdSetting = (
     return new PluginSetting<string>(setting, characterId);
 }
 
-const characterNotLoadedShouldHide = computed(() => (campaignId.value || '') == '');
-
-export const initCharacterNotLoadedWarning = (containerEl: HTMLElement) => {
+export const initCharacterNotLoadedWarning = (
+	containerEl: HTMLElement,
+	campaignId: Signal<string>,
+) => {
+	const characterNotLoadedShouldHide = computed(() => (campaignId.value || '') == '');
     const characterNotLoadedWarning = new Setting(containerEl)
         .setName('No character loaded')
         .setDesc('Please enter a valid campaign ID to load your character information.');

@@ -2,12 +2,11 @@ import { Signal, signal } from "@preact/signals";
 import { Setting } from "obsidian";
 import { PluginSetting } from "./index";
 
-export const campaignId = signal('');
 export const initCampaignIdSetting = (
     containerEl: HTMLElement,
     value: string
 ) => {
-
+	const campaignId = signal(value);
     const setting = new Setting(containerEl)
                 .setName('Campaign ID')
                 .setDesc('This will download the campaign info. Your DM can find it in their campaign settings.')
@@ -21,14 +20,12 @@ export const initCampaignIdSetting = (
     return new PluginSetting<string>(setting, campaignId);
 }
 
-
-const campaignName = signal('');
 export const initCampaignNameSetting = (
     containerEl: HTMLElement,
     value: string,
     disabled: Signal<boolean>
 ) => {
-
+	const campaignName = signal(value);
     const setting = new Setting(containerEl)
 			.setName('Campaign Name')
 			.setDesc('Name of this awesome campaign')
