@@ -1,7 +1,6 @@
 import {App, PluginSettingTab, setIcon, Setting} from "obsidian";
 import type RPGCharacterPlugin from "./main";
 import P2PService from "./p2p";
-import AuthenticationService from "./authentication";
 import {initCampaignIdSetting, initCampaignNameSetting} from "./settings/campaign";
 import { initCharacterIdSetting, initCharacterNotLoadedWarning } from "./settings/character";
 import { computed } from "@preact/signals";
@@ -54,13 +53,11 @@ export const DEFAULT_SETTINGS: PluginSettings = {
 export class SettingTab extends PluginSettingTab {
 	plugin: RPGCharacterPlugin;
 	private readonly p2pService: P2PService;
-	private readonly authService: AuthenticationService;
 
 	constructor(app: App, plugin: RPGCharacterPlugin) {
 		super(app, plugin);
 		this.plugin = plugin;
-		this.authService = new AuthenticationService(app.secretStorage);
-		this.p2pService = new P2PService(this.authService, this.plugin.settings.character.id);
+		this.p2pService = new P2PService(this.plugin.settings.character.id);
 	}
 
 	display(): void {

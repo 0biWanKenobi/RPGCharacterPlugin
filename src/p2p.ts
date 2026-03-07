@@ -1,11 +1,9 @@
-import AuthenticationService from "authentication";
 import { DataConnection, Peer } from "peerjs";
 
 export default class P2PService {
 
     private readonly peer: Peer | undefined;
     private peerId: string | undefined;
-    private authService: AuthenticationService;
 
     private peerIdPromise = Promise.withResolvers<string>();
 	
@@ -15,10 +13,9 @@ export default class P2PService {
      * Builds the peer and sets up the "open" event listener
      * to store the peer ID when the connection is established.
      */
-    constructor(authService: AuthenticationService, currentPeerId?: string) {
+	constructor(currentPeerId?: string) {
 		this.peerId = currentPeerId || `${this.P2P_PEER_PREFIX}_${crypto.randomUUID()}`;
         this.peer = new Peer(this.peerId);
-        this.authService = authService;
         this.peer.on("open", (id) => {
             this.peerId = id;
             this.peerIdPromise.resolve(id);
@@ -49,8 +46,4 @@ export default class P2PService {
         return promise;
     }
 
-    public sendHandshake(connection: DataConnection) {
-        const publicKey = this.authService.getPublicKey();
-        connection.send({ type: "handshake", publicKey });
-    }
 }
