@@ -7,6 +7,18 @@ If your plugin does not need CSS, delete this file.
 
 */
 
+:root {
+	--group-border-radius: 12px;
+}
+
+body {
+	--border-color: var(--color-base-40, var(--background-modifier-border-focus));
+}
+
+.is-mobile {
+	--group-border-radius: 30px;
+}
+
 .vertical-tab-content .plugin-settings-title {
 	font-size: var(--font-ui-large);
 }
@@ -22,5 +34,25 @@ If your plugin does not need CSS, delete this file.
 		svg {
 			display: block;
 		}
+	}
+}
+
+.plugin-setting-group {
+	border: 1px solid var(--border-color);
+	border-radius: var(--group-border-radius);
+	padding: 10px 3px 3px;
+}
+
+.plugin-settings-dm-gallery {
+	display: flex;
+	flex-direction: row;
+	gap: 1em;
+	margin-bottom: 20px;
+	.plugin-settings-dm-gallery-item {
+		width: 100px;
+		height: 100px;
+		border: 1px solid var(--border-color);
+		border-radius: 5px;
+		padding: 10px;
 	}
 }

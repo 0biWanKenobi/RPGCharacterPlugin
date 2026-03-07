@@ -1,5 +1,5 @@
 import { Signal, signal } from "@preact/signals";
-import { Setting } from "obsidian";
+import {ButtonComponent, Notice, Setting} from "obsidian";
 import { PluginSetting } from "./index";
 
 export const initCampaignIdSetting = (
@@ -41,4 +41,19 @@ export const initCampaignNameSetting = (
 				return text;
 			});
     return new PluginSetting<string>(setting, campaignName);
+}
+export const initCampaignAddButton = (
+	containerEl: HTMLElement,
+)=> {
+
+	const wrapper = containerEl.createEl('div', {cls: 'ps-btn plugin-settings-campaign-add'})
+	const campaignIdInput = initCampaignIdSetting(wrapper, '')
+
+	new ButtonComponent(wrapper)
+		.setButtonText('Join Campaign')
+		.onClick(async () => {
+			new Notice('Join Request Sent!')
+		})
+
+	return campaignIdInput;
 }
