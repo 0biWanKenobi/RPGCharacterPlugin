@@ -1,42 +1,23 @@
-import {computed, signal} from "@preact/signals";
-import {ButtonComponent, ExtraButtonComponent, Notice, Setting, SettingGroup} from "obsidian";
+import {computed} from "@preact/signals";
+import {ButtonComponent, Notice, Setting, SettingGroup} from "obsidian";
 import {PluginSetting} from "./index";
 
-const initDungeonMasterIdSetting = (
- 	setting: Setting,	
-	value: string
-)=> {
-	const dungeonMasterId = signal(value);
-	setting  
-		.setName('Dungeon Master ID')
-		.setDesc(
-			`This will enable sending a connection request to your DM, and accessing their campaigns when they accept.`
-		)
-		.addText(text => text
-			.setPlaceholder('rpg_dm_id_4c58112a-f325-4397-b5b7-db137ef42414')
-			.setValue(value)
-			.onChange(async (value) => {
-				dungeonMasterId.value = value
-			})
-		);
-	return new PluginSetting(setting, dungeonMasterId);
+const initDungeonMasterIdSetting = (setting: Setting, value: string) => {
+	return PluginSetting.textual(
+		setting,
+		'Dungeon Master ID',
+		'This will enable sending a connection request to your DM, and accessing their campaigns when they accept.',
+		value
+	);
 }
 
-const initDungeonMasterNameSetting = (
-	setting: Setting,
-	value: string
-) => {
-	const dungeonMasterName = signal(value);
-	setting
-		.setName('Name')
-		.setDesc('This will show in the list of your DMs, so you can keep track.')
-		.addText(text => text
-			.setValue(value)
-			.onChange(async (value) => {
-				dungeonMasterName.value = value
-			})
-		)
-	return new PluginSetting(setting, dungeonMasterName);
+const initDungeonMasterNameSetting = (	setting: Setting, value: string) => {
+	return PluginSetting.textual(
+		setting,
+		'Name',
+		'This will show in the list of your DMs, so you can keep track.',
+		value	
+	);
 }
 
 
