@@ -7,7 +7,8 @@ export const initCampaignIdSetting = (
     value: string
 ) => {
 	const campaignId = signal(value);
-    const setting = new Setting(containerEl)
+    // noinspection SpellCheckingInspection -- fix "cmpgn" in the placeholder
+	const setting = new Setting(containerEl)
                 .setName('Campaign ID')
                 .setDesc('This will download the campaign info. Your DM can find it in their campaign settings.')
                 .addText(text => text
