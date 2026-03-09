@@ -60,9 +60,6 @@ export class SettingTab extends PluginSettingTab {
 			}
 		}
 		
-		
-		
-		
 		const dmAddModal = new AddDungeonMasterModal(this.app);
 		dmAddModal.content
 			.onAddClicked(async (dmId, dmName) => {
