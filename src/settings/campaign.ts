@@ -1,6 +1,6 @@
 import { Signal, signal } from "@preact/signals";
 import {ButtonComponent, Notice, Setting} from "obsidian";
-import { PluginSetting } from "./index";
+import { PluginSetting } from "rpg_shared/settings/plugin";
 
 export const initCampaignIdSetting = (
     containerEl: HTMLElement,

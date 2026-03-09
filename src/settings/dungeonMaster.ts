@@ -1,10 +1,10 @@
 import {computed, Signal} from "@preact/signals";
 import {App, ButtonComponent, Modal, Notice, setIcon, Setting, SettingGroup} from "obsidian";
-import {PluginSetting} from "./index";
+import { PluginSetting, TextPluginSetting } from "rpg_shared/settings/plugin";
 import {DungeonMasterSettings} from "./interfaces";
 
 const initDungeonMasterIdSetting = (setting: Setting, value: string) => {
-	return PluginSetting.textual(
+	return TextPluginSetting.build(
 		setting,
 		'Dungeon Master ID',
 		'This will enable sending a connection request to your DM, and accessing their campaigns when they accept.',
@@ -13,7 +13,7 @@ const initDungeonMasterIdSetting = (setting: Setting, value: string) => {
 }
 
 const initDungeonMasterNameSetting = (	setting: Setting, value: string) => {
-	return PluginSetting.textual(
+	return TextPluginSetting.build(
 		setting,
 		'Name',
 		'This will show in the list of your DMs, so you can keep track.',
