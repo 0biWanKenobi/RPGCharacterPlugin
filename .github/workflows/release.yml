@@ -38,9 +38,13 @@ jobs:
         working-directory: rpg_shared
         run: npm ci
 
+      - name: Build shared dependencies
+        working-directory: rpg_shared
+        run: npm run build
+      
       - name: Publish shared package to Yalc
         working-directory: rpg_shared
-        run: npm run yalc:publish
+        run: yalc publish
 
       - name: Install player dependencies
         run: npm install
