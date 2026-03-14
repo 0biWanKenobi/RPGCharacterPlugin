@@ -49,11 +49,11 @@ jobs:
         working-directory: rpg_shared
         run: yalc publish
 
-      - name: Install player dependencies
-        run: npm install
-
       - name: Link shared package into player plugin
         run: yalc update rpg_shared || yalc add rpg_shared
+
+      - name: Install player dependencies
+        run: npm install
 
       - name: Build
         run: npm run build # Ensure this script outputs main.js to your root
