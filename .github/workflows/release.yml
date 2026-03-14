@@ -3,7 +3,19 @@ name: Release Plugin
 on:
   push:
     tags:
-      - "*" # Triggers on any tag push. Use "v*" to restrict to version tags.
+      - "v*" # Triggers on any tag push. Use "v*" to restrict to version tags.
+  workflow_dispatch:
+    inputs:
+      tag_name:
+        description: Release tag to create
+        required: true
+      target_commitish:
+        description: Branch or commit to release from
+        required: false
+        default: main
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"
 
 jobs:
   build:
@@ -13,19 +25,19 @@ jobs:
 
     steps:
       - name: Checkout player plugin
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Use Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
-          node-version: "20"
+          node-version: "24"
           cache: "npm"
           cache-dependency-path: |
             package-lock.json
             rpg_shared/package-lock.json
 
       - name: Checkout shared package
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           repository: 0biWanKenobi/rpg_shared
           path: rpg_shared
@@ -37,15 +49,19 @@ jobs:
         working-directory: rpg_shared
         run: npm ci
 
+      - name: Build shared dependencies
+        working-directory: rpg_shared
+        run: npm run build
+      
       - name: Publish shared package to Yalc
         working-directory: rpg_shared
-        run: npm run yalc:publish
+        run: yalc publish
+
+      - name: Link shared package into player plugin
+        run: yalc add rpg_shared
 
       - name: Install player dependencies
         run: npm install
-
-      - name: Link shared package into player plugin
-        run: yalc update rpg_shared || yalc add rpg_shared
 
       - name: Build
         run: npm run build # Ensure this script outputs main.js to your root
@@ -54,6 +70,8 @@ jobs:
         id: create_release
         uses: softprops/action-gh-release@v2
         with:
+          tag_name: ${{ github.ref_type == 'tag' && github.ref_name || inputs.tag_name }}
+          target_commitish: ${{ github.ref_type == 'tag' && '' || inputs.target_commitish }}
           files: |
             main.js
             manifest.json
