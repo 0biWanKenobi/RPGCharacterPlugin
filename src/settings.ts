@@ -37,9 +37,8 @@ export class SettingTab extends PluginSettingTab {
 	display(): void {
 		const {containerEl} = this;
 		containerEl.empty();
-
-		new Setting(containerEl).setName('RPG character plugin').setHeading().setClass('rpg-settings-title')
-
+		// eslint-disable-next-line obsidianmd/settings-tab/no-problematic-settings-headings
+		new Setting(containerEl).setName('Options').setHeading().setClass('rpg-settings-title')
 		
 		headerWithIcon(containerEl, 'Dungeon Masters', 'dice');
 
