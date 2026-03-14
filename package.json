@@ -1,6 +1,6 @@
 {
 	"name": "rpg-player-plugin",
-	"version": "1.0.0",
+	"version": "v0.0.1-alpha",
 	"description": "An Obsidian plugin to play RPG games with friends. This is the player plugin, which connects to the master plugin and receives game state updates.",
 	"main": "main.js",
 	"type": "module",
