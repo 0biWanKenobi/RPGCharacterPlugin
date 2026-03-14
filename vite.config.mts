@@ -24,6 +24,10 @@ const external = [
 	...builtinModules,
 ];
 
+
+
+const isWatch = process.argv.includes("--watch");
+
 export default defineConfig(({ mode }) => ({
 	build: {
 		lib: {
@@ -33,10 +37,10 @@ export default defineConfig(({ mode }) => ({
 			cssFileName: "styles"
 		},
 		outDir: ".",
-		watch: {
+		watch: isWatch ? {
 			allowInputInsideOutputPath: true,
 			exclude: ["**/main.js", "**/*.map"],
-		},
+		} : undefined,
 		emptyOutDir: false,
 		sourcemap: mode === "development" ? "inline" : false,
 		minify: mode !== "development",
