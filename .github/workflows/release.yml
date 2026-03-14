@@ -5,6 +5,14 @@ on:
     tags:
       - "*" # Triggers on any tag push. Use "v*" to restrict to version tags.
   workflow_dispatch:
+    inputs:
+      tag_name:
+        description: Release tag to create
+        required: true
+      target_commitish:
+        description: Branch or commit to release from
+        required: false
+        default: main
 
 env:
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"
@@ -62,6 +70,8 @@ jobs:
         id: create_release
         uses: softprops/action-gh-release@v2
         with:
+          tag_name: ${{ github.ref_type == 'tag' && github.ref_name || inputs.tag_name }}
+          target_commitish: ${{ github.ref_type == 'tag' && '' || inputs.target_commitish }}
           files: |
             main.js
             manifest.json
