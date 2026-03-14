@@ -1,7 +1,8 @@
 import {computed, Signal} from "@preact/signals";
 import {App, ButtonComponent, Modal, Notice, setIcon, Setting, SettingGroup} from "obsidian";
-import { PluginSetting, TextPluginSetting } from "rpg_shared/settings/plugin";
 import {DungeonMasterSettings} from "./interfaces";
+import { PluginSetting, TextPluginSetting } from "rpg_shared/settings/plugin";
+import { ConfirmModal } from "rpg_shared/ui/confirmModal"
 
 const initDungeonMasterIdSetting = (setting: Setting, value: string) => {
 	return TextPluginSetting.build(
@@ -32,42 +33,11 @@ export class AddDungeonMasterModal extends Modal {
 	}
 }
 
-export class RemoveDungeonMasterModal extends Modal {
-	private confirmed = false; 
-	
-	private responseResolver = Promise.withResolvers<boolean>();
+export class RemoveDungeonMasterModal extends ConfirmModal {
 	
 	constructor(app: App) {
 		super(app);
 		this.setTitle('Remove Dungeon Master?');
-		
-		const btnContainer = this.contentEl.createEl('div', { cls: 'delete-dm-modal-buttons' })
-		
-		new	ButtonComponent(btnContainer)
-					.setButtonText('Yes')
-					.setWarning()
-					.onClick(() => {
-						this.confirmed = true;
-						this.close();
-					});
-		new	ButtonComponent(btnContainer)
-			.setButtonText('No')
-			.onClick(() => this.close());
-	}
-	
-	onOpen(): Promise<void> | void {
-		this.confirmed = false;
-		return super.onOpen();
-	}
-
-	onClose() {
-		this.responseResolver.resolve(this.confirmed);
-		super.onClose();
-	}
-
-	waitResponse() {
-		super.open();
-		return this.responseResolver.promise;
 	}
 }
 

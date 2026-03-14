@@ -1,7 +1,7 @@
 import {App, Editor, MarkdownView, Modal, Notice, Plugin} from 'obsidian';
 import {DEFAULT_SETTINGS, PluginSettings, SettingTab} from "./settings";
 import "./styles.css"
-// Remember to rename these classes and interfaces!
+import "rpg_shared/styles.css"
 
 export default class RPGCharacterPlugin extends Plugin {
 	settings: PluginSettings;
