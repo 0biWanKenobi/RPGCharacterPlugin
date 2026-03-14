@@ -6,6 +6,9 @@ on:
       - "*" # Triggers on any tag push. Use "v*" to restrict to version tags.
   workflow_dispatch:
 
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -14,19 +17,19 @@ jobs:
 
     steps:
       - name: Checkout player plugin
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Use Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
-          node-version: "20"
+          node-version: "24"
           cache: "npm"
           cache-dependency-path: |
             package-lock.json
             rpg_shared/package-lock.json
 
       - name: Checkout shared package
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           repository: 0biWanKenobi/rpg_shared
           path: rpg_shared
