@@ -9,7 +9,7 @@ export const initCharacterIdSetting = (
 	const characterId = signal(value);
     const setting = new Setting(containerEl)
                 .setName('Character ID')
-                .setDesc('Your Character ID. Give it to your master to link it to the campaign.')
+                .setDesc('Your character ID. Give it to your master to link it to the campaign.')
                 .addButton(btn => btn
                     .setButtonText('Copy to clipboard')
                     .setIcon('copy')

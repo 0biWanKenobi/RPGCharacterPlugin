@@ -37,8 +37,9 @@ export class SettingTab extends PluginSettingTab {
 	display(): void {
 		const {containerEl} = this;
 		containerEl.empty();
-		
-		containerEl.createEl('h2', { text: 'RPG Character Plugin Settings', cls: 'plugin-settings-title' });
+
+		new Setting(containerEl).setName('RPG character plugin').setHeading().setClass('rpg-settings-title')
+
 		
 		headerWithIcon(containerEl, 'Dungeon Masters', 'dice');
 
@@ -84,7 +85,7 @@ export class SettingTab extends PluginSettingTab {
 		
 		new Setting(containerEl)
 			.addButton( btn => {
-				btn.setButtonText('Add New Dungeon Master')
+				btn.setButtonText('Add new Dungeon Master')
 					.onClick(() => dmAddModal.open())
 			})
 			

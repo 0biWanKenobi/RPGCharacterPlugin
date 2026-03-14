@@ -63,7 +63,7 @@ export const initAddDungeonMasterOption = (
 				const buttonDisabled = computed(() => !dmIdInput.signal.value)
 				const buttonTooltip = computed(() => 
 					buttonDisabled.value
-						? 'Input a DM Id to send the request'
+						? 'Input a DM ID to send the request'
 						: 'Tap to send the request'
 				)
 				s.addButton( btn => {
@@ -83,7 +83,7 @@ export const initAddDungeonMasterOption = (
 		subscribe: dmIdInput!.subscribe,
 		onAddClicked: (callback: DmAddOnClickCallback) => {
 			button.onClick(async () => {
-				new Notice('Join Request Sent!')
+				new Notice('Join request sent!')
 				await callback(dmIdInput.signal.value, dmNameInput.signal.value);			
 			})
 			return returnedObject;

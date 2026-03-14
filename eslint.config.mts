@@ -31,6 +31,14 @@ export default tseslint.config(
 		},
 		rules: {
 			...recommendedRules,
+			"obsidianmd/ui/sentence-case": [
+				"error",
+				{
+					acronyms: ["RPG", "DM", "ID"],
+					brands: ["Dungeon Master"],
+					enforceCamelCaseLower: true,
+				},
+			],
 		},
 	},
 	globalIgnores([
