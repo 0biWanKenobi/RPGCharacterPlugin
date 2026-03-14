@@ -25,3 +25,5 @@ data.json
 # Exclude .yalc
 .yalc/
 yalc.lock
+
+/styles.css
