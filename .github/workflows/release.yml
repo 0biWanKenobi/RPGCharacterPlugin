@@ -50,7 +50,7 @@ jobs:
         run: yalc publish
 
       - name: Link shared package into player plugin
-        run: yalc update rpg_shared || yalc add rpg_shared
+        run: yalc add rpg_shared
 
       - name: Install player dependencies
         run: npm install
