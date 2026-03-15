@@ -1,5 +1,5 @@
 import {App, Notice, PluginSettingTab, setIcon, Setting} from "obsidian";
-import type RPGCharacterPlugin from "./main";
+import type RPGCharacterPlugin from "./rpgPlayerMain";
 import P2PService from "./p2p";
 import {initCampaignAddButton} from "./settings/campaign";
 import {
