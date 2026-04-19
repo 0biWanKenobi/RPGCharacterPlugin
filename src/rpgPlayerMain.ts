@@ -4,7 +4,7 @@ import "./styles.css"
 import "rpg_shared/styles.css"
 
 export default class RPGCharacterPlugin extends Plugin {
-	settings: PluginSettings;
+	settings!: PluginSettings;
 
 	async onload() {
 		console.log('Loading RPG Character Plugin');

@@ -9,5 +9,8 @@ declare interface ImportMeta {
    * A string representing the directory of the current module, injected by the
    * build process or runtime environment when needed.
    */
-  readonly dirname: string;
+  dirname: string;
 }
+
+
+declare module "*.css";

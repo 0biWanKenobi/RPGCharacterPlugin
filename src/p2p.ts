@@ -77,10 +77,10 @@ class MessageHandler {
 
 
 class CharacterMessage {
-	public id: string;
-	public name: string;
-	public class: string;
-	public level: number;
+	public id!: string;
+	public name!: string;
+	public class!: string;
+	public level!: number;
 	public readonly type = "CharacterMessage";
 }
 
