@@ -1,8 +1,8 @@
 import {computed, Signal} from "@preact/signals";
 import {App, ButtonComponent, Modal, Notice, setIcon, Setting, SettingGroup} from "obsidian";
 import {DungeonMasterSettings} from "./interfaces";
-import { PluginSetting, TextPluginSetting } from "rpg_shared/settings/plugin";
-import { ConfirmModal } from "rpg_shared/ui/confirmModal"
+import { PluginSetting, TextPluginSetting } from "rpg_shared/settings";
+import { ConfirmModal } from "rpg_shared/ui"
 
 const initDungeonMasterIdSetting = (setting: Setting, value: string) => {
 	return TextPluginSetting.build(

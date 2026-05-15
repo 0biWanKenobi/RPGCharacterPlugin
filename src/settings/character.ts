@@ -1,6 +1,6 @@
 import {computed, type Signal, signal} from "@preact/signals";
 import { Notice, Setting } from "obsidian";
-import { PluginSetting } from "rpg_shared/settings/plugin";
+import { PluginSetting } from "rpg_shared/settings";
 
 export const initCharacterIdSetting = (
     containerEl: HTMLElement,
