@@ -7,6 +7,7 @@ import {
 	initDungeonMasterGalleryItem, RemoveDungeonMasterModal
 } from "./settings/dungeonMaster";
 import {DungeonMasterSettings} from "./settings/interfaces";
+import { HeaderWithIcon } from "rpg_shared/ui/headerWithIcon";
 
 
 
@@ -40,7 +41,7 @@ export class SettingTab extends PluginSettingTab {
 		// eslint-disable-next-line obsidianmd/settings-tab/no-problematic-settings-headings
 		new Setting(containerEl).setName('Options').setHeading().setClass('rpg-settings-title')
 		
-		headerWithIcon(containerEl, 'Dungeon Masters', 'dice');
+		new HeaderWithIcon(containerEl).setDesc('Dungeon Masters').setIcon('dice');
 
 		//TODO: add a search function over the DMs
 		const dmGallery = containerEl.createEl('div', {cls: 'plugin-settings-dm-gallery'})
@@ -90,25 +91,14 @@ export class SettingTab extends PluginSettingTab {
 			
 		//TODO: campaign gallery, sorted by master as a default, sortable by date, name
 
-		headerWithIcon(containerEl, 'Campaigns', 'scroll-text');
+		new HeaderWithIcon(containerEl).setDesc('Campaigns').setIcon('scroll-text');
 		
 		const campaignGallery = containerEl.createEl('div', {cls: 'plugin-settings-campaigns-gallery'})
 		
 		const campaignAddBtn = initCampaignAddButton(containerEl)
 		
 
-		headerWithIcon(containerEl, 'Characters', 'file-user');
+		new HeaderWithIcon(containerEl).setDesc('Characters').setIcon('file-user');
 		
 	}
-}
-
-const headerWithIcon = (parent: HTMLElement, title: string, icon: string) => {
-	const campaignHeader = new Setting(parent)
-	.setName(title)
-	.setClass('header-with-icon')
-	.setHeading();
-	
-	setIcon(campaignHeader.settingEl.createDiv({cls: 'header-icon-wrapper'}), icon);
-
-	return campaignHeader;
 }
